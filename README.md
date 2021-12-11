@@ -14,3 +14,4 @@ Copy path of folder where you installed FFMPEG, paste to the "path" textfield. C
 
 If you don't want to install Python, you can just run the executable file included in the package. The text must be contained in a file named text.txt and placed in the same folder as the program, or the program will crash. The program only understands lowercase and capital letters. Spaces and all other punctuation signs, numbers and all non-letter characters will be ignored. After you input your word and press Enter, the program will save the waveform to a file called waveform.wav and close itself. You can now open your synth and import the file as a waveform into the oscillator.
 The package contains a file with the waveform corresponding the the word "Hello".
+I've also included in this repository the first version of the program, which does not require Pydub and FFMPEG.
