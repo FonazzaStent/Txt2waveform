@@ -1,13 +1,8 @@
-import sys
 import tkinter as tk
-import tkinter.ttk as ttk
-from tkinter.constants import *
 from tkinter import *
 from tkinter.filedialog import asksaveasfilename
 import os
 import math
-import subprocess
-import io
 
 #create main window
 def create_main_window():
@@ -30,6 +25,7 @@ def create_textbox():
         scroll_1.pack(side=RIGHT, fill=Y)
         textbox.configure(yscrollcommand=scroll_1.set)
         scroll_1.configure(command=textbox.yview)
+        textbox.focus_set()
 
 #menu
 def create_menu():
