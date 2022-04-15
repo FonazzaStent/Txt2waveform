@@ -4,6 +4,11 @@ from tkinter.filedialog import asksaveasfilename
 import os
 import math
 
+#init
+def init():
+        global coefficient
+        coefficient=15
+
 #create main window
 def create_main_window():
         global top
@@ -13,6 +18,7 @@ def create_main_window():
         top= root
         top.geometry("600x450+468+138")
         top.title("Text to Waveform")
+        top.resizable(0,0)
         favicon=tk.PhotoImage(data=img) 
         root.wm_iconphoto(True, favicon)
 
@@ -36,6 +42,7 @@ def create_menu():
     sub_menu.add_command(compound="left",label="Paste", command=paste_text)
     sub_menu.add_command(compound="left",label="Clear", command=ClearTextBox)
     sub_menu.add_command(compound="left",label="Convert", command=convert)
+    sub_menu.add_command(compound="left",label="Configure", command=configure)
     sub_menu.add_command(compound="left",label="Quit", command=QuitApp)
 
 #Quit
@@ -66,6 +73,53 @@ def paste_text():
 #Clear
 def ClearTextBox():
     textbox.delete(1.0,END)
+
+#Configure
+def configure():
+        global configwin
+        global entry1
+        configwin=tk.Toplevel(top)
+        configwin.geometry("253x137+440+129")
+        configwin.resizable(0,0)
+        configwin.title("Configure")
+        label1=Label(configwin)
+        label1.place(relx=0.119, rely=0.438, height=33, width=122)
+        label1.configure(anchor='w')
+        label1.configure(compound='left')
+        label1.configure(text='''Frequency coefficient''')
+        label2=Label(configwin)
+        label2.place(relx=0.237, rely=0.073, height=24, width=144)
+        label2.configure(anchor='w')
+        label2.configure(compound='left')
+        label2.configure(text='''Input a value from 5 to 32''')
+        label3=Label(configwin)
+        label3.place(relx=0.277, rely=0.219, height=34, width=114)
+        label3.configure(anchor='w')
+        label3.configure(compound='left')
+        label3.configure(text='''(5 higest frequency)''')
+        entry1=Entry(configwin)
+        entry1.place(relx=0.632, rely=0.511, height=20, relwidth=0.253)
+        entry1.focus_set()
+        entry1.configure(takefocus="")
+        button1=Button(configwin)
+        button1.place(relx=0.395, rely=0.73, height=24, width=47)
+        button1.configure(compound='left')
+        button1.configure(pady="0")
+        button1.configure(text='''OK''')
+        button1.bind("<Button-1>",get_parameters)
+        button1.bind("<Return>",get_parameters)
+        button1.configure(takefocus="")
+
+def get_parameters(event):
+        global coefficient
+        entryvalue=entry1.get()
+        if entryvalue.isdigit()==True:
+                coefficient=int(entryvalue)
+                if coefficient<5:
+                        coefficient=5
+                if coefficient>32:
+                        coefficient=32
+        configwin.destroy()
 
 #Save to file
 def Save_to_file():
@@ -101,7 +155,7 @@ def triangle (amp, samples):
     samples=int(samples)
     posamp=128+amp
     negamp= 128-amp
-    freq= int(256/samples)
+    freq= int(360/samples)
     negfreq=freq-freq*2
     for i in range (128,posamp,freq):
         bytewrite=i.to_bytes(1,'big')
@@ -131,11 +185,11 @@ def square (amp, samples):
 #Convert letters
 def convert():
     trc=14.11
-    trcm=14.11
+    trcm=coefficient
     sqc=21.16
-    sqcm=21.16
+    sqcm=coefficient
     snc=11.54
-    sncm=11.54
+    sncm=coefficient
     global tempfile
     tempfile=open("tempfile.wav",'wb')
     text=textbox.get(1.0,END)
@@ -204,6 +258,7 @@ def convert():
     
 #main             
 def main():
+        init()
         create_main_window()
         create_textbox()
         create_menu()
