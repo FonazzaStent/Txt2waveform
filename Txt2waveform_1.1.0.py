@@ -176,10 +176,10 @@ def square (amp, samples):
     negamp=128-amp
     freq=int(samples/2)
     for i in range (0,freq,1):
-        bytewrite=negamp.to_bytes(1,'big')
+        bytewrite=posamp.to_bytes(1,'big')
         tempfile.write(bytewrite)
     for n in range (0,freq,1):
-        bytewrite=posamp.to_bytes(1,'big')
+        bytewrite=negamp.to_bytes(1,'big')
         tempfile.write(bytewrite)
         
 #Convert letters
@@ -187,7 +187,7 @@ def convert():
     trc=14.11
     trcm=coefficient
     sqc=21.16
-    sqcm=coefficient
+    sqcm=int(coefficient*1.8)
     snc=11.54
     sncm=coefficient
     global tempfile
@@ -196,63 +196,60 @@ def convert():
     length=len(text)
     for letters in range (0,length):
         char=text[letters]
-        if char=='':
-            end
-        else:
-            asciicode=ord(char)
-            if (asciicode>64 and asciicode<91) or (asciicode>96 and asciicode<123):
-                if char=="A" or char=="a":
-                    triangle(trc,trcm)
-                if char=="B" or char=="b":
-                    sine (snc,sncm)
-                if char=="C" or char=="c":
-                    sine(snc*2,sncm*2)
-                if char=="D" or char=="d":
-                    sine(snc*3,sncm*3)
-                if char=="E" or char=="e":
-                    square(sqc,sqcm)
-                if char=="F" or char=="f":
-                    square(sqc*2,sqcm*2)
-                if char=="G" or char=="g":
-                    sine(snc*4,sncm*4)
-                if char=="H" or char=="h":
-                    square(sqc*3,sqcm*3)
-                if char=="i" or char=="I":
-                    square(sqc*4,sqcm*4)
-                if char=="J" or char=="j":
-                    sine(snc*5,sncm*5)
-                if char=="K" or char=="k":
-                    triangle(trc*2,trcm*2)
-                if char=="L" or char=="l":
-                    square(sqc*5,sqcm*5)
-                if char=="M" or char=="m":
-                    triangle(trc*3,trcm*3)
-                if char=="N" or char=="n":
-                    triangle(trc*4,trcm*4)
-                if char=="O" or char=="o":
-                    sine(snc*6,sncm*6)
-                if char=="P" or char=="p":
-                    sine(snc*7,sncm*7)
-                if char=="Q" or char=="q":
-                    sine(snc*8,sncm*8)
-                if char=="R" or char=="r":
-                    sine(snc*9,sncm*9)
-                if char=="S" or char=="s":
-                    sine(snc*10,sncm*10)
-                if char=="T" or char=="t":
-                    square(sqc*6,sqcm*6)
-                if char=="U" or char=="u":
-                    sine(snc*11,sncm*11)
-                if char=="V" or char=="v":
-                    triangle(trc*5,trcm*5)
-                if char=="W" or char=="w":
-                    triangle(trc*6,trcm*6)
-                if char=="X" or char=="x":
-                    triangle(trc*7,trcm*7)
-                if char=="Y" or char=="y":
-                    triangle(trc*8,trcm*8)
-                if char=="Z" or char=="z":
-                    triangle(trc*9,trcm*9)
+        asciicode=ord(char)
+        if (asciicode>64 and asciicode<91) or (asciicode>96 and asciicode<123):
+            if char=="A" or char=="a":
+                triangle(trc,trcm)
+            if char=="B" or char=="b":
+                sine (snc,sncm)
+            if char=="C" or char=="c":
+                sine(snc*2,sncm*2)
+            if char=="D" or char=="d":
+                sine(snc*3,sncm*3)
+            if char=="E" or char=="e":
+                square(sqc,sqcm)
+            if char=="F" or char=="f":
+                square(sqc*2,sqcm*2)
+            if char=="G" or char=="g":
+                sine(snc*4,sncm*4)
+            if char=="H" or char=="h":
+                square(sqc*3,sqcm*3)
+            if char=="i" or char=="I":
+                square(sqc*4,sqcm*4)
+            if char=="J" or char=="j":
+                sine(snc*5,sncm*5)
+            if char=="K" or char=="k":
+                triangle(trc*2,trcm*2)
+            if char=="L" or char=="l":
+                square(sqc*5,sqcm*5)
+            if char=="M" or char=="m":
+                triangle(trc*3,trcm*3)
+            if char=="N" or char=="n":
+                triangle(trc*4,trcm*4)
+            if char=="O" or char=="o":
+                sine(snc*6,sncm*6)
+            if char=="P" or char=="p":
+                sine(snc*7,sncm*7)
+            if char=="Q" or char=="q":
+                sine(snc*8,sncm*8)
+            if char=="R" or char=="r":
+                sine(snc*9,sncm*9)
+            if char=="S" or char=="s":
+                sine(snc*10,sncm*10)
+            if char=="T" or char=="t":
+                square(sqc*6,sqcm*6)
+            if char=="U" or char=="u":
+                sine(snc*11,sncm*11)
+            if char=="V" or char=="v":
+                triangle(trc*5,trcm*5)
+            if char=="W" or char=="w":
+                triangle(trc*6,trcm*6)
+            if char=="X" or char=="x":
+                triangle(trc*7,trcm*7)
+            if char=="Y" or char=="y":
+                triangle(trc*8,trcm*8)
+            if char=="Z" or char=="z":
+                triangle(trc*9,trcm*9)
     tempfile.close()
     Save_to_file()
     
